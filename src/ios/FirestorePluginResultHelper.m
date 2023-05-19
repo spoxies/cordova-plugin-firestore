@@ -89,6 +89,19 @@ NSDictionary *mappedErrors;
     return pluginResult;
 }
 
++ (NSString *)mapDocumentChangeType:(FIRDocumentChangeType)type {
+    switch(type) {
+        case FIRDocumentChangeTypeAdded:
+            return @"added";
+        case FIRDocumentChangeTypeModified:
+            return @"modified";
+        case FIRDocumentChangeTypeRemoved:
+            return @"removed";
+        default:
+            return @"unknown";
+    }
+}
+
 + (NSDictionary *)createError:(NSInteger )code :(NSString *)message {
 
     NSDictionary *error;
