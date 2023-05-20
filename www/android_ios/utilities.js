@@ -34,9 +34,9 @@ var wrap = function (data) {
         data[key] = Firestore.options().datePrefix + data[key].getTime();
       }
     } else if (
-        Object.prototype.toString.call(data[key]) === '[object Object]' &&
-        key !=='_ref'
-        ) {
+      Object.prototype.toString.call(data[key]) === '[object Object]' &&
+      key !== '_ref'
+    ) {
       data[key] = wrap(data[key]);
     }
   }
