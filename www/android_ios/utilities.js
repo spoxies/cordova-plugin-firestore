@@ -43,6 +43,12 @@ var wrap = function (data) {
   return data;
 };
 
+var getSelfWithoutRef = function() {
+  const {_ref, ...rest} = this;
+  return rest;
+}
+
 module.exports = {
-  wrap: wrap
+  wrap: wrap,
+  getSelfWithoutRef : getSelfWithoutRef
 };
