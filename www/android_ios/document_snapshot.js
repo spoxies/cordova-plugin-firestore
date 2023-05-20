@@ -75,7 +75,6 @@ DocumentSnapshot.prototype = {
 
           var reference = data[key].substr(prefixLength, length - prefixLength);
 
-          console.log("create doc ref");
           data[key] = this._newDocumentReference(reference);
           
         } else if (Object.prototype.toString.call(data[key]) === '[object Object]') {

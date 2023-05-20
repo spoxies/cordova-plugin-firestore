@@ -40,8 +40,15 @@ CollectionReference.prototype = Object.create(Query.prototype, {
     }
   },
   path: {
-    get: function() {
+    get: function () {
       return this._path.cleanPath;
+    }
+  },
+  toJSON: {
+    value: function() {
+      const obj = Object.assign({}, this);
+      obj._ref = Utilities.getSelfWithoutRef.call(this);
+      return obj;
     }
   }
 });
