@@ -19,6 +19,12 @@ AutoId.prototype = {
 
 function getOrGenerateId(id) {
   if (typeof id === 'string') {
+      // check if id string contains a ','
+      if(id.includes(',')) {
+        // if so only return part after the comma
+        let parts = id.split(',');
+        return parts[1];
+      }
     return id;
   }
 
