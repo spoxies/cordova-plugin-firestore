@@ -108,7 +108,16 @@ static NSString *fieldValueArrayUnion = @"__ARRAYUNION";
         }
 
     } else if ([value isKindOfClass:[NSDictionary class]]) {
-        value = [self toSettableDictionaryInternal:(NSDictionary *)value ForPlugin:firestorePlugin];
+        NSDictionary *dictValue = (NSDictionary *)value;
+        // Check if there are only 2 keys present, and they are `seconds` and `nanoseconds`
+        if ([dictValue count] == 2 && dictValue[@"seconds"] != nil && dictValue[@"nanoseconds"] != nil) {
+            // Construct FIRTimestamp from the dictionary
+            FIRTimestamp *timestamp = [[FIRTimestamp alloc] initWithSeconds:[dictValue[@"seconds"] longLongValue]
+                                                                 nanoseconds:[dictValue[@"nanoseconds"] intValue]];
+            value = timestamp;
+        } else {
+            value = [self toSettableDictionaryInternal:(NSDictionary *)value ForPlugin:firestorePlugin];
+        }
     } else if ([value isKindOfClass:[NSArray class]]) {
         value = [self toSettableArrayInternal:(NSArray *)value ForPlugin:firestorePlugin];
     }
