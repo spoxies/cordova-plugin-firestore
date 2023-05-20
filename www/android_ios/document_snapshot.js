@@ -75,7 +75,6 @@ DocumentSnapshot.prototype = {
 
           var reference = data[key].substr(prefixLength, length - prefixLength);
 
-          console.log("create doc ref");
           data[key] = this._newDocumentReference(reference);
           
         } else if (Object.prototype.toString.call(data[key]) === '[object Object]') {
@@ -96,7 +95,7 @@ DocumentSnapshot.prototype = {
     return this._data._data;
   },
   get: function (fieldPath) {
-    return fieldPath.split('.').reduce(this._fieldPath, this._data);
+    return (this._data) ? fieldPath.split('.').reduce(this._fieldPath, this._data._data || this._data) : false;
   }
 };
 

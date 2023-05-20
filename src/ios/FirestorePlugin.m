@@ -187,7 +187,7 @@
       directionBool = true;
     }
 
-    os_log_debug(OS_LOG_DEFAULT, "Order by %s + (%s)", [self convertString:field], [self convertString:direction]);
+    //os_log_debug(OS_LOG_DEFAULT, "Order by %s + (%s)", [self convertString:field], [self convertString:direction]);
 
     return [query queryOrderedByField:field descending:directionBool];
 }
@@ -304,7 +304,7 @@
             pluginResult = [FirestorePluginResultHelper createPluginErrorResult:error :NO];
         } else {
             pluginResult = [FirestorePluginResultHelper createQueryPluginResult:snapshot :NO];
-            os_log_debug(OS_LOG_DEFAULT, "Successfully got collection");
+            // os_log_debug(OS_LOG_DEFAULT, "Successfully got collection");
         }
 
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -496,7 +496,7 @@
 
         } else {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-            os_log_debug(OS_LOG_DEFAULT,"Successfully updated document");
+            //os_log_debug(OS_LOG_DEFAULT,"Successfully updated document");
         }
 
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
