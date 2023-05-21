@@ -59,7 +59,7 @@ NSDictionary *mappedErrors;
     NSMutableArray *result = [[NSMutableArray alloc] init];
     NSMutableArray *changes = [[NSMutableArray alloc] init];
   
-    os_log_debug(OS_LOG_DEFAULT, "Creating query snapshot result");
+    // os_log_debug(OS_LOG_DEFAULT, "Creating query snapshot result");
 
     if (query.documents != nil) {
         for (FIRQueryDocumentSnapshot *doc in query.documents) {
@@ -119,7 +119,7 @@ NSDictionary *mappedErrors;
 
     NSDictionary *documentSnapshot;
 
-    os_log_debug(OS_LOG_DEFAULT, "Creating document snapshot result");
+    // os_log_debug(OS_LOG_DEFAULT, "Creating document snapshot result");
 
     if (doc.exists) {
         documentSnapshot = @{ @"id" : doc.documentID,
@@ -141,7 +141,7 @@ NSDictionary *mappedErrors;
 
     NSDictionary *documentReference;
 
-    os_log_debug(OS_LOG_DEFAULT, "Creating document reference result");
+    // os_log_debug(OS_LOG_DEFAULT, "Creating document reference result");
 
     documentReference = @{ @"id" : doc.documentID};
 

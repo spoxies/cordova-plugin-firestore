@@ -304,7 +304,7 @@
             pluginResult = [FirestorePluginResultHelper createPluginErrorResult:error :NO];
         } else {
             pluginResult = [FirestorePluginResultHelper createQueryPluginResult:snapshot :NO];
-            os_log_debug(OS_LOG_DEFAULT, "Successfully got collection");
+            // os_log_debug(OS_LOG_DEFAULT, "Successfully got collection");
         }
 
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
