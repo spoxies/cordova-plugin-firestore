@@ -11,7 +11,7 @@ var wrap = function (data) {
     return Firestore.options().datePrefix + data.getTime();
   }
 
-  if (Object.prototype.toString.call(data) === '[object DocumentReference]') {
+  if (data.toString && data.toString() === '[object DocumentReference]') {
     return Firestore.options().referencePrefix + data.path;
   }
 

@@ -91,6 +91,9 @@ DocumentReference.prototype = {
       exec(resolve, reject, PLUGIN_NAME, 'docSet', args);
     });
   },
+  toString : function () {
+    return "[object DocumentReference]";
+  },
   update: function (data) {
 
     var args = [this._collectionReference.path, this._id, Utilities.wrap(data)];
