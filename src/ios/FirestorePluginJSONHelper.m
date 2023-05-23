@@ -97,10 +97,21 @@ static NSString *fieldValueArrayUnion = @"__ARRAYUNION";
         }
       
         if ([stringValue length] > referencePrefixLength && [referencePrefix isEqualToString:[stringValue substringToIndex:referencePrefixLength]]) {
-            NSArray *tmp = [[stringValue substringFromIndex:referencePrefixLength] componentsSeparatedByString:@","];
+            NSArray *pathComponents = [[stringValue substringFromIndex:referencePrefixLength] componentsSeparatedByString:@"/"];
             FIRFirestore *firestore = [firestorePlugin getFirestore];
-            FIRDocumentReference *reference = [[firestore collectionWithPath:@""] documentWithPath:[tmp objectAtIndex:0]]; //[[FIRDocumentReference alloc] initWithReference:[[tmp objectAtIndex:0] stringValue]];
-            value = reference;
+
+            // Check if there are an odd number of pathComponents (collection)
+            if ([pathComponents count] % 2 == 1) {
+                FIRCollectionReference *reference = [firestore collectionWithPath:[pathComponents componentsJoinedByString:@"/"]];
+                value = reference;
+            }
+            // Check if there are an even number of pathComponents (document)
+            else if ([pathComponents count] % 2 == 0) {
+                NSString *documentPath = [pathComponents lastObject];
+                NSString *collectionPath = [[pathComponents subarrayWithRange:NSMakeRange(0, [pathComponents count] - 1)] componentsJoinedByString:@"/"];
+                FIRDocumentReference *reference = [[firestore collectionWithPath:collectionPath] documentWithPath:documentPath];
+                value = reference;
+            }
         }
         
         if ([self isWrappedFieldValue:stringValue]) {
