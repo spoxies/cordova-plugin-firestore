@@ -95,7 +95,7 @@ DocumentSnapshot.prototype = {
     return this._data._data;
   },
   get: function (fieldPath) {
-    return fieldPath.split('.').reduce(this._fieldPath, this._data);
+    return (this._data) ? fieldPath.split('.').reduce(this._fieldPath, this._data._data || this._data) : false;
   }
 };
 
