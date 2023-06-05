@@ -29,7 +29,7 @@ public class JSONGeopointWrapper extends GeoPoint {
     public static GeoPoint unwrapGeoPoint(Object value) {
         String stringValue = (String) value;
         int prefixLength = geopointPrefix.length();
-        String latLng = stringValue.substring(prefixLength + 1);
+        String latLng = stringValue.substring(prefixLength);
         String[] tmp = latLng.split(",");
         return new GeoPoint(Double.parseDouble(tmp[0]), Double.parseDouble(tmp[1]));
     }

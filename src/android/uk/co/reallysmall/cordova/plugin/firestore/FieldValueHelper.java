@@ -111,7 +111,7 @@ public class FieldValueHelper {
 
     public static String unwrap(String valueString, String prefix) {
         int prefixLength = prefix.length();
-        String ret = valueString.substring(prefixLength + 1);
+        String ret = valueString.substring(prefixLength);
         return ret;
     }
 }
