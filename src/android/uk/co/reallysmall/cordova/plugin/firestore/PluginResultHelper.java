@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -78,7 +79,7 @@ public class PluginResultHelper {
         for (DocumentChange change : value.getDocumentChanges()) {
             JSONObject changeObj = new JSONObject();
             try {
-                changeObj.put("type", change.getType().toString());
+                changeObj.put("type", change.getType().toString().toLowerCase());
                 changeObj.put("doc", createDocumentSnapshot(change.getDocument()));
             } catch (JSONException e) {
                 FirestoreLog.e(FirestorePlugin.TAG, "Error creating document change result", e);

@@ -135,11 +135,11 @@ public class InitialiseHandler implements ActionHandler {
 
             if (options.has(TIMESTAMPSINSNAPSHOTS)) {
                 timestampsInSnapshots = options.getBoolean(TIMESTAMPSINSNAPSHOTS);
+                FirestoreLog.e(FirestorePlugin.TAG, "Timestamps in snapshots not supported", e);
             }
 
             FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                     .setPersistenceEnabled(persist)
-                    .setTimestampsInSnapshotsEnabled(timestampsInSnapshots)
                     .build();
             firestorePlugin.getDatabase().setFirestoreSettings(settings);
 
