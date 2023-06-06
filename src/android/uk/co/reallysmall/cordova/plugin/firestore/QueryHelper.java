@@ -8,11 +8,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class QueryHelper {
     private static Map<String, QueryHandler> queryHandlers = new HashMap<String, QueryHandler>();
+    private static List<String> orderByFields = new ArrayList<>();
 
     static {
         queryHandlers.put("limit", new LimitQueryHandler());
@@ -29,7 +32,21 @@ public class QueryHelper {
 
         FirestoreLog.d(FirestorePlugin.TAG, "Processing queries");
 
+        // New loop so we clear
+        orderByFields.clear();
+
         int length = queries.length();
+
+        for (int i = 0; i < length; i++) {
+            JSONObject queryDefinition = queries.getJSONObject(i);
+            String queryType = queryDefinition.getString("queryType");
+
+            if (queryType.equals("orderBy")) {
+                // Extract field for orderBy
+                JSONObject value = queryDefinition.getJSONObject("value");
+                orderByFields.add(value.getString("field"));
+            }
+        }
         for (int i = 0; i < length; i++) {
             JSONObject queryDefinition = queries.getJSONObject(i);
 
@@ -43,5 +60,9 @@ public class QueryHelper {
         }
 
         return query;
+    }
+
+    public static List<String> getOrderByFields() {
+        return new ArrayList<>(orderByFields);
     }
 }

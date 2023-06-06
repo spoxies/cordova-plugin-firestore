@@ -91,7 +91,11 @@ public class JSONHelper {
                 newValue = value;
             }
         } else if (value instanceof Map) {
-            newValue = toSettableMapInternal((Map<Object, Object>) value);
+            if (JSONDateWrapper.isWrappedDate(value)){
+                newValue = JSONDateWrapper.unwrapDate(value);
+            }else{
+                newValue = toSettableMapInternal((Map<Object, Object>) value);
+            }
         } else if (value instanceof ArrayList) {
             newValue = toSettableArrayInternal((ArrayList) value);
         }  else if (value instanceof JSONObject) {
